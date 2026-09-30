@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảy kì quan thế giới cổ đại</title>
+    <style>
+        /* Định dạng cơ bản cho toàn bộ trang */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fcf8e3; /* Màu vàng nhạt */
+            color: #000000; /* Chữ màu đen */
+            line-height: 1.6;
+            padding: 15px;
+        }
+
+        /* Tiêu đề chính của trang web */
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-top: 10px;
+        }
+
+        header h1 {
+            font-size: 28px; /* Cỡ chữ tên trang web là 28 */
+            font-weight: bold;
+            color: #000000;
+        }
+
+        /* Vùng chứa các khung nội dung */
+        .wonders-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Khoảng cách giữa các khung */
+        }
+
+        /* Thiết kế khung động (Card) */
+        .wonder-card {
+            background-color: #ffffff; /* Nền khung màu trắng để nổi bật trên nền vàng nhạt */
+            border: 2px solid #e6dbb2; /* Viền khung màu vàng đậm hơn một chút */
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng động mượt mà */
+        }
+
+        /* Hiệu ứng động khi người dùng chạm/nhấn giữ trên điện thoại */
+        .wonder-card:active {
+            transform: scale(0.98); /* Khung hơi thu nhỏ lại khi chạm vào */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #faf4d3; /* Đổi màu nền nhẹ khi nhấn */
+        }
+
+        /* Tên của các kì quan trong khung */
+        .wonder-card h2 {
+            font-size: 20px; /* Cỡ chữ của các khung là 20 */
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+
+        /* Đoạn văn mô tả ngắn (bạn có thể thay đổi nội dung này) */
+        .wonder-card p {
+            font-size: 14px;
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tiêu đề trang web -->
+    <header>
+        <h1>Bảy kì quan thế giới cổ đại</h1>
+    </header>
+
+    <!-- Danh sách 7 khung động tương ứng với 7 kì quan -->
+    <main class="wonders-container">
+        
+        <div class="wonder-card">
+            <h2>Đại kim tự tháp Kheops</h2>
+            <p>Nhấn vào để xem chi tiết lịch sử và cấu trúc của kì quan cổ đại duy nhất còn tồn tại đến ngày nay.</p>
+        </div>
+
+        <div class="wonder-card">
+            <h2>Đền thờ Artemis</h2>
+            <p>Khám phá đền thờ thần săn bắn vĩ đại với những cột đá cẩm thạch tráng lệ tại Ephesus.</p>
+        </div>
+
+        <div class="wonder-card">
+            <h2>Vườn treo Babylon</h2>
+            <p>Tìm hiểu về vương quốc xanh mướt huyền thoại được xây dựng bên dòng sông Euphrates.</p>
+        </div>
+
+        <div class="wonder-card">
+            <h2>Lăng mộ vua Mausolus</h2>
+            <p>Công trình kiến trúc mộ phần nguy nga, nơi bắt nguồn của từ "mausoleum" trong ngôn ngữ hiện đại.</p>
+        </div>
+
+        <div class="wonder-card">
+            <h2>Tượng thần Zeus</h2>
+            <p>Bức tượng khổng lồ làm bằng ngà voi và vàng, khắc họa vị thần tối cao trên đỉnh Olympia.</p>
+        </div>
+
+        <div class="wonder-card">
+            <h2>Hải đăng Alexandria</h2>
+            <p>Ngọn đèn biển kỳ vĩ dẫn đường cho các thủy thủ trên biển Địa Trung Hải suốt hàng thế kỷ.</p>
+        </div>
+
+        <div class="wonder-card">
+            <h2>Người khổng lồ đảo Rhodes</h2>
+            <p>Bức tượng thần mặt trời Helios bằng đồng khổng lồ đứng sừng sững tại lối vào cảng biển.</p>
+        </div>
+
+    </main>
+
+</body>
+</html>
