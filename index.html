@@ -7,15 +7,15 @@
     <title>Bảy kỳ quan thế giới cổ đại</title>
     <style>
 /* ==========================================================================
-   0. KHÓA CỨNG KÍCH THƯỚC TOÀN BỘ TRANG WEB (SỬA TRIỆT ĐỂ LỖI DÍNH VIỀN)
+   0. KHÓA CỨNG KÍCH THƯỚC TOÀN BỘ TRANG WEB
    ========================================================================== */
 *, *::before, *::after {
-    box-sizing: border-box; /* Ép mọi phần tử tính toán lùi vào trong */
-    word-wrap: break-word;   /* Tự động xuống dòng nếu từ quá dài */
+    box-sizing: border-box;
+    word-wrap: break-word;
 }
 
 /* ==========================================================================
-   1. THANH TIẾN TRÌNH (PROGRESS BAR)
+   1. THANH TIẾN TRÌNH THỜI GIAN (PROGRESS BAR) PHONG CÁCH CỔ KÍNH
    ========================================================================== */
 @keyframes growProgress {
     from { transform: scaleX(0); }
@@ -29,7 +29,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 6px; 
-    background-color: #d4ac0d; 
+    background-color: #8a6d3b; /* Màu nâu đồng cổ kính */
     z-index: 9999;
     transform-origin: left;
     animation: growProgress linear both;
@@ -37,12 +37,18 @@ body::before {
 }
 
 /* ==========================================================================
-   2. CẤU HÌNH TOÀN TRANG & MOBILE CONTAINER
+   2. CẤU HÌNH TOÀN TRANG NỀN GIẢ GIẤY CỔ (VINTAGE PAPER)
    ========================================================================== */
 body {
-    background-color: #fef9e7; /* Nền vàng nhạt */
-    color: #000000;            /* Chữ màu đen */
-    font-family: Arial, sans-serif; /* Font chữ Arial */
+    /* Tạo hiệu ứng giả giấy thô, ấm áp bằng dải màu kép đan xen hạt màu */
+    background-color: #f2e6ce; 
+    background-image: 
+        radial-gradient(rgba(244, 233, 211, 0.4) 15%, transparent 16%),
+        radial-gradient(rgba(230, 215, 185, 0.6) 15%, transparent 16%),
+        linear-gradient(to right, rgba(220, 200, 165, 0.1), rgba(250, 245, 230, 0.2) 50%, rgba(220, 200, 165, 0.1));
+    background-size: 8px 8px, 12px 12px, 100% 100%;
+    color: #2b2013; /* Màu chữ nâu đen thay vì đen tuyền để hợp với chất giấy */
+    font-family: Arial, sans-serif; 
     margin: 0;
     padding: 15px; 
     display: flex;
@@ -54,21 +60,23 @@ body {
 
 .container {
     width: 100%;
-    max-width: 400px;          /* Tối ưu kích thước trên màn hình điện thoại */
+    max-width: 400px;
 }
 
-/* Tiêu đề chính của trang web (Cỡ chữ 28) */
+/* Tiêu đề chính (Cỡ chữ 28) */
 h1 {
     font-size: 28px;
     text-align: center;
     text-transform: uppercase;
-    margin: 20px 0 30px 0;
+    margin: 25px 0 35px 0;
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    color: #4a3621;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.6);
 }
 
 /* ==========================================================================
-   3. PHẦN TRANG CHỦ - 7 KHUNG ĐỘNG (DANH SÁCH LIÊN KẾT)
+   3. PHẦN TRANG CHỦ - 7 KHUNG NÚT BẤM GIẢ GIẤY CUỘN
    ========================================================================== */
 .wonders-container {
     display: flex;
@@ -77,88 +85,96 @@ h1 {
     margin-bottom: 80px; 
 }
 
-/* Cấu hình các khung nút bấm (Cỡ chữ 20) */
+/* Khung cuộn nút bấm (Cỡ chữ 20) */
 .wonder-card {
     display: block;
     font-size: 20px;
     text-decoration: none;
-    color: #000000;
-    background-color: #ffffff;
-    padding: 20px;
-    border: 2px solid #000000;
+    color: #3d2b1f;
+    /* Hiệu ứng nền giấy da cừu (parchment) */
+    background: linear-gradient(135deg, #fffcf5 0%, #f7f0dc 100%);
+    padding: 18px;
+    border: 2px solid #5c442c; 
     border-radius: 12px;
     text-align: center;
     font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    /* Đổ bóng dạng giấy dày xếp chồng */
+    box-shadow: 1px 3px 5px rgba(92, 68, 44, 0.15);
     position: relative;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+/* Hiệu ứng chạm khi lướt trên điện thoại */
 .wonder-card:hover, 
 .wonder-card:active {
-    transform: translateY(-5px);       
-    background-color: #fff2cc;         
-    border-color: #d4ac0d;             
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); 
+    transform: translateY(-4px);       
+    background: linear-gradient(135deg, #f7f0dc 0%, #ecdcb9 100%); /* Giấy ngả vàng sẫm */
+    border-color: #8a6d3b;             
+    box-shadow: 2px 6px 12px rgba(92, 68, 44, 0.3); 
 }
 
 /* ==========================================================================
-   4. PHẦN TRANG PHỤ - KHUNG NỘI DUNG CHI TIẾT SỬ DỤNG ẢNH NỀN
+   4. PHẦN TRANG PHỤ - KHUNG NỘI DUNG SỬ DỤNG ẢNH NỀN VÀ KHỐI GIẤY ÉP
    ========================================================================== */
 .detail-section { 
     margin-top: 60px;      
     margin-bottom: 60px;   
     width: 100%; 
-    border: 2px solid #000000; 
+    border: 3px double #4a3621; /* Đường viền đôi kiểu cổ điển */
     border-radius: 16px; 
     overflow: hidden;
     background-size: cover; 
     background-position: center;
     
-    /* Hiệu ứng cuộn động liên tục */
+    /* Hiệu ứng cuộn động hai chiều bám theo ngón tay */
     animation: scrollFadeInOut linear both;
     animation-timeline: view();
     animation-range: entry 10% exit 90%;
 }
 
-/* Lớp phủ kính mờ: Bỏ hẳn padding để tránh lỗi phình kích thước trên mobile */
+/* Lớp phủ ảnh gốc */
 .glass-overlay {
-    background: rgba(254, 249, 231, 0.94); /* Tăng nhẹ độ đậm để chữ rõ nét hơn */
-    backdrop-filter: blur(5px);            
-    -webkit-backdrop-filter: blur(5px);
+    background: rgba(43, 32, 19, 0.3); /* Phủ một lớp bóng tối nhẹ để tôn ảnh nền */
     width: 100%; 
     height: 100%; 
     display: flex;
     flex-direction: column;
 }
 
-/* KHỐI BẢO VỆ MỚI: Dùng margin để ép toàn bộ nội dung thụt hẳn vào trong, cách ly khỏi viền */
+/* KHỐI BẢO VỆ CHỐNG TRÀN + GIẢ NỀN GIẤY DA HOÀN HẢO XUNG QUANH CHỮ */
 .inner-content-box {
-    margin: 24px; /* Tạo bức tường khoảng trống 24px an toàn tuyệt đối xung quanh viền */
+    margin: 24px; /* Tạo bức tường trống cách ly chữ khỏi viền 24px */
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(92, 68, 44, 0.2);
+    /* Chất liệu giấy cuộn cổ đè lên trên ảnh nền */
+    background: linear-gradient(180deg, rgba(255, 253, 247, 0.95) 0%, rgba(24df, 238, 220, 0.95) 100%);
+    box-shadow: inset 0 0 15px rgba(92, 68, 44, 0.1), 0 4px 10px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
 }
 
-/* Tiêu đề của các trang phụ */
+/* Tiêu đề kỳ quan bên trong khung giấy */
 .detail-section h2 { 
     font-size: 24px; 
     text-transform: uppercase; 
     text-align: center; 
     margin: 0 0 20px 0; 
+    color: #4a3621;
+    font-weight: bold;
 }
 
-/* Thẻ hình ảnh minh họa bên trong khung */
+/* Thẻ hình ảnh minh họa nhỏ */
 .wonder-image { 
     width: 100%; 
     height: 180px; 
     object-fit: cover; 
-    border: 2px solid #000000; 
-    border-radius: 12px; 
+    border: 1px solid #4a3621; 
+    border-radius: 8px; 
     margin-bottom: 20px; 
 }
 
-/* Khối bọc văn bản */
 .sub-content {
     width: 100%;
 }
@@ -166,7 +182,8 @@ h1 {
 /* Tiêu đề nhỏ: Tổng quan, Lịch sử (Cỡ chữ 20) */
 .sub-content h3 { 
     font-size: 20px; 
-    border-bottom: 2px solid #000000; 
+    color: #5c442c;
+    border-bottom: 1px dashed #5c442c; /* Đường gạch nét đứt phong cách sách cổ */
     padding-bottom: 6px; 
     margin-top: 20px; 
     margin-bottom: 10px; 
@@ -177,30 +194,32 @@ h1 {
     font-size: 16px; 
     text-align: justify; 
     margin: 0 0 15px 0; 
+    color: #2b2013;
 }
 
-/* Nút quay lại đầu trang */
+/* Nút quay lại đầu trang kiểu thẻ giấy */
 .top-btn { 
     display: block; 
     text-align: center; 
     margin-top: 25px; 
     text-decoration: none; 
-    color: #000000; 
+    color: #4a3621; 
     font-weight: bold; 
     font-size: 14px; 
     padding: 10px; 
-    border: 1px solid #000000; 
-    border-radius: 8px; 
-    background-color: #fef9e7; 
+    border: 1px solid #5c442c; 
+    border-radius: 6px; 
+    background: #f7f0dc;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     transition: background-color 0.2s;
 }
 
 .top-btn:active {
-    background-color: #fff2cc;
+    background-color: #ecdcb9;
 }
 
 /* ==========================================================================
-   5. THUẬT TOÁN ANIMATION
+   5. THUẬT TOÁN ANIMATION CUỘN HAI CHIỀU MƯỢT MÀ
    ========================================================================== */
 @keyframes scrollFadeInOut {
     0% {
@@ -210,7 +229,6 @@ h1 {
     30%, 70% {
         opacity: 1;
         transform: scale(1) translateY(0);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     }
     100% {
         opacity: 0;
