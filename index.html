@@ -1,130 +1,354 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bảy kì quan thế giới cổ đại</title>
+    <title>Bảy kỳ quan thế giới cổ đại</title>
     <style>
-        /* Định dạng cơ bản cho toàn bộ trang */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+/* ==========================================================================
+   0. KHÓA CỨNG KÍCH THƯỚC TOÀN BỘ TRANG WEB (SỬA TRIỆT ĐỂ LỖI DÍNH VIỀN)
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box; /* Ép mọi phần tử tính toán lùi vào trong */
+    word-wrap: break-word;   /* Tự động xuống dòng nếu từ quá dài */
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #fcf8e3; /* Màu vàng nhạt */
-            color: #000000; /* Chữ màu đen */
-            line-height: 1.6;
-            padding: 15px;
-        }
+/* ==========================================================================
+   1. THANH TIẾN TRÌNH (PROGRESS BAR)
+   ========================================================================== */
+@keyframes growProgress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
 
-        /* Tiêu đề chính của trang web */
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-top: 10px;
-        }
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px; 
+    background-color: #d4ac0d; 
+    z-index: 9999;
+    transform-origin: left;
+    animation: growProgress linear both;
+    animation-timeline: scroll(root);
+}
 
-        header h1 {
-            font-size: 28px; /* Cỡ chữ tên trang web là 28 */
-            font-weight: bold;
-            color: #000000;
-        }
+/* ==========================================================================
+   2. CẤU HÌNH TOÀN TRANG & MOBILE CONTAINER
+   ========================================================================== */
+body {
+    background-color: #fef9e7; /* Nền vàng nhạt */
+    color: #000000;            /* Chữ màu đen */
+    font-family: Arial, sans-serif; /* Font chữ Arial */
+    margin: 0;
+    padding: 15px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    scroll-behavior: smooth;   
+    line-height: 1.6;
+}
 
-        /* Vùng chứa các khung nội dung */
-        .wonders-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px; /* Khoảng cách giữa các khung */
-        }
+.container {
+    width: 100%;
+    max-width: 400px;          /* Tối ưu kích thước trên màn hình điện thoại */
+}
 
-        /* Thiết kế khung động (Card) */
-        .wonder-card {
-            background-color: #ffffff; /* Nền khung màu trắng để nổi bật trên nền vàng nhạt */
-            border: 2px solid #e6dbb2; /* Viền khung màu vàng đậm hơn một chút */
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng động mượt mà */
-        }
+/* Tiêu đề chính của trang web (Cỡ chữ 28) */
+h1 {
+    font-size: 28px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 20px 0 30px 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
 
-        /* Hiệu ứng động khi người dùng chạm/nhấn giữ trên điện thoại */
-        .wonder-card:active {
-            transform: scale(0.98); /* Khung hơi thu nhỏ lại khi chạm vào */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            background-color: #faf4d3; /* Đổi màu nền nhẹ khi nhấn */
-        }
+/* ==========================================================================
+   3. PHẦN TRANG CHỦ - 7 KHUNG ĐỘNG (DANH SÁCH LIÊN KẾT)
+   ========================================================================== */
+.wonders-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 80px; 
+}
 
-        /* Tên của các kì quan trong khung */
-        .wonder-card h2 {
-            font-size: 20px; /* Cỡ chữ của các khung là 20 */
-            font-weight: bold;
-            color: #000000;
-            margin-bottom: 8px;
-        }
+/* Cấu hình các khung nút bấm (Cỡ chữ 20) */
+.wonder-card {
+    display: block;
+    font-size: 20px;
+    text-decoration: none;
+    color: #000000;
+    background-color: #ffffff;
+    padding: 20px;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
 
-        /* Đoạn văn mô tả ngắn (bạn có thể thay đổi nội dung này) */
-        .wonder-card p {
-            font-size: 14px;
-            color: #333333;
-        }
+.wonder-card:hover, 
+.wonder-card:active {
+    transform: translateY(-5px);       
+    background-color: #fff2cc;         
+    border-color: #d4ac0d;             
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); 
+}
+
+/* ==========================================================================
+   4. PHẦN TRANG PHỤ - KHUNG NỘI DUNG CHI TIẾT SỬ DỤNG ẢNH NỀN
+   ========================================================================== */
+.detail-section { 
+    margin-top: 60px;      
+    margin-bottom: 60px;   
+    width: 100%; 
+    border: 2px solid #000000; 
+    border-radius: 16px; 
+    overflow: hidden;
+    background-size: cover; 
+    background-position: center;
+    
+    /* Hiệu ứng cuộn động liên tục */
+    animation: scrollFadeInOut linear both;
+    animation-timeline: view();
+    animation-range: entry 10% exit 90%;
+}
+
+/* Lớp phủ kính mờ: Bỏ hẳn padding để tránh lỗi phình kích thước trên mobile */
+.glass-overlay {
+    background: rgba(254, 249, 231, 0.94); /* Tăng nhẹ độ đậm để chữ rõ nét hơn */
+    backdrop-filter: blur(5px);            
+    -webkit-backdrop-filter: blur(5px);
+    width: 100%; 
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* KHỐI BẢO VỆ MỚI: Dùng margin để ép toàn bộ nội dung thụt hẳn vào trong, cách ly khỏi viền */
+.inner-content-box {
+    margin: 24px; /* Tạo bức tường khoảng trống 24px an toàn tuyệt đối xung quanh viền */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tiêu đề của các trang phụ */
+.detail-section h2 { 
+    font-size: 24px; 
+    text-transform: uppercase; 
+    text-align: center; 
+    margin: 0 0 20px 0; 
+}
+
+/* Thẻ hình ảnh minh họa bên trong khung */
+.wonder-image { 
+    width: 100%; 
+    height: 180px; 
+    object-fit: cover; 
+    border: 2px solid #000000; 
+    border-radius: 12px; 
+    margin-bottom: 20px; 
+}
+
+/* Khối bọc văn bản */
+.sub-content {
+    width: 100%;
+}
+
+/* Tiêu đề nhỏ: Tổng quan, Lịch sử (Cỡ chữ 20) */
+.sub-content h3 { 
+    font-size: 20px; 
+    border-bottom: 2px solid #000000; 
+    padding-bottom: 6px; 
+    margin-top: 20px; 
+    margin-bottom: 10px; 
+}
+
+/* Văn bản nội dung chi tiết */
+.sub-content p { 
+    font-size: 16px; 
+    text-align: justify; 
+    margin: 0 0 15px 0; 
+}
+
+/* Nút quay lại đầu trang */
+.top-btn { 
+    display: block; 
+    text-align: center; 
+    margin-top: 25px; 
+    text-decoration: none; 
+    color: #000000; 
+    font-weight: bold; 
+    font-size: 14px; 
+    padding: 10px; 
+    border: 1px solid #000000; 
+    border-radius: 8px; 
+    background-color: #fef9e7; 
+    transition: background-color 0.2s;
+}
+
+.top-btn:active {
+    background-color: #fff2cc;
+}
+
+/* ==========================================================================
+   5. THUẬT TOÁN ANIMATION
+   ========================================================================== */
+@keyframes scrollFadeInOut {
+    0% {
+        opacity: 0;
+        transform: scale(0.90) translateY(40px);
+    }
+    30%, 70% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.90) translateY(-40px);
+    }
+}
+
     </style>
 </head>
 <body>
 
-    <!-- Tiêu đề trang web -->
-    <header>
-        <h1>BẢY KỲ QUAN THẾ GIỚI CỔ ĐẠI</h1>
-    </header>
+    <div class="container">
+        <h1>Bảy kỳ quan thế giới cổ đại</h1>
 
-    <!-- Danh sách 7 khung động tương ứng với 7 kì quan -->
-    <main class="wonders-container">
-        
-        <div class="wonder-card">
+        <div class="wonders-container">
+            <a href="#kheops" class="wonder-card">Đại kim tự tháp Kheops</a>
+            <a href="#artemis" class="wonder-card">Đền thờ Artemis</a>
+            <a href="#babylon" class="wonder-card">Vườn treo Babylon</a>
+            <a href="#mausolus" class="wonder-card">Lăng mộ vua Mausolus</a>
+            <a href="#zeus" class="wonder-card">Tượng thần Zeus</a>
+            <a href="#alexandria" class="wonder-card">Hải đăng Alexandria</a>
+            <a href="#rhodes" class="wonder-card">Người khổng lồ đảo Rhodes</a>
+        </div>
+
+        <!-- 1. ĐẠI KIM TỰ THÁP KHEOPS -->
+        <div id="kheops" class="detail-section fade-in-content">
+ <div class="inner-content-box"> 
             <h2>Đại kim tự tháp Kheops</h2>
-            <p>Nhấn vào để xem chi tiết lịch sử và cấu trúc của kì quan cổ đại duy nhất còn tồn tại đến ngày nay.</p>
-<div class="sketchfab-embed-wrapper"> <iframe title="Great Pyramid of Giza" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/01810314feca4415a33a51dd151eacb3/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/great-pyramid-of-giza-01810314feca4415a33a51dd151eacb3" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Great Pyramid of Giza </a> by <a href="https://sketchfab.com/saVRee" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> saVRee </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+            <img class="wonder-image" src="https://unsplash.com" alt="Kheops">
+            <div class="sub-content">
+                <h3>Tổng quan</h3>
+                <p>Tọa lạc tại Ai Cập. Đây là kỳ quan lâu đời nhất và duy nhất còn tồn tại nguyên vẹn đến ngày nay.</p>
+                <h3>Lịch sử & Kiến trúc</h3>
+                <p>Xây dựng vào năm 2560 TCN làm lăng mộ cho Pharaoh Kheops. Công trình cao 146,6m, gồm 2,3 triệu khối đá xếp chồng chuẩn xác.</p>
+            </div>
+            <a href="#" class="top-btn">▲ Quay lại danh sách</a>
         </div>
-
-        <div class="wonder-card">
+</div>
+        <!-- 2. ĐỀN THỜ ARTEMIS -->
+        <div id="artemis" class="detail-section fade-in-content">
+ <div class="inner-content-box"> 
             <h2>Đền thờ Artemis</h2>
-            <p>Khám phá đền thờ thần săn bắn vĩ đại với những cột đá cẩm thạch tráng lệ tại Ephesus.</p>
-<div class="sketchfab-embed-wrapper"> <iframe title="Temple of Artemis" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/81923b64d79b4c31b195444dc714b92b/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/temple-of-artemis-81923b64d79b4c31b195444dc714b92b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Temple of Artemis </a> by <a href="https://sketchfab.com/WelsEvil" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> WelsEvil </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+            <div class="sketchfab-embed-wrapper"> <iframe title="Temple of Artemis" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/9f554322f38943d2851e1ee4dd9d5cbb/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/temple-of-artemis-9f554322f38943d2851e1ee4dd9d5cbb" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Temple of Artemis </a> by <a href="https://sketchfab.com/funreality" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> funreality </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+            <div class="sub-content">
+                <h3>Tổng quan</h3>
+                <p>Nằm ở thành phố cổ Ephesus (Thổ Nhĩ Kỳ). Là công trình kiến trúc lộng lẫy bậc nhất vùng Địa Trung Hải cổ đại.</p>
+                <h3>Lịch sử & Kiến trúc</h3>
+                <p>Hoàn thành năm 550 TCN, dựng bằng đá cẩm thạch trắng với 127 cột đá khổng lồ. Đền đã bị thiêu rụi hoàn toàn do hỏa hoạn.</p>
+            </div>
+            <a href="#" class="top-btn">▲ Quay lại danh sách</a>
         </div>
-
-        <div class="wonder-card">
+</div>
+        <!-- 3. VƯỜN TREO BABYLON -->
+        <div id="babylon" class="detail-section fade-in-content">
+ <div class="inner-content-box"> 
             <h2>Vườn treo Babylon</h2>
-            <p>Tìm hiểu về vương quốc xanh mướt huyền thoại được xây dựng bên dòng sông Euphrates.</p>
-<div class="sketchfab-embed-wrapper"> <iframe title="Hanging Gardens of Babylon" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7ebd9215a41d4abea9c0b2d8f4352a0d/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/hanging-gardens-of-babylon-7ebd9215a41d4abea9c0b2d8f4352a0d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Hanging Gardens of Babylon </a> by <a href="https://sketchfab.com/WelsEvil" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> WelsEvil </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+            <div class="sketchfab-embed-wrapper"> <iframe title="Hanging Gardens of Babylon" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/7ebd9215a41d4abea9c0b2d8f4352a0d/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/hanging-gardens-of-babylon-7ebd9215a41d4abea9c0b2d8f4352a0d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Hanging Gardens of Babylon </a> by <a href="https://sketchfab.com/WelsEvil" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> WelsEvil </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+            <div class="sub-content">
+                <h3>Tổng quan</h3>
+                <p>Nằm tại Iraq ngày nay. Đây là kỳ quan bí ẩn nhất vì chưa tìm thấy bằng chứng khảo cổ chắc chắn.</p>
+                <h3>Lịch sử & Kiến trúc</h3>
+                <p>Do Vua Nebuchadnezzar II xây dựng năm 600 TCN để vơi nỗi nhớ quê của vương hậu. Khu vườn gồm nhiều tầng bậc thang xanh mướt.</p>
+            </div>
+            <a href="#" class="top-btn">▲ Quay lại danh sách</a>
         </div>
-
-        <div class="wonder-card">
+</div>
+        <!-- 4. LĂNG MỘ VUA MAUSOLUS -->
+        <div id="mausolus" class="detail-section fade-in-content">
+ <div class="inner-content-box"> 
             <h2>Lăng mộ vua Mausolus</h2>
-            <p>Công trình kiến trúc mộ phần nguy nga, nơi bắt nguồn của từ "mausoleum" trong ngôn ngữ hiện đại.</p>
-<div class="sketchfab-embed-wrapper"> <iframe title="Mausoleum at Halicarnassus" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/988d5975c20f4c079792a3fba911173d/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/mausoleum-at-halicarnassus-988d5975c20f4c079792a3fba911173d" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Mausoleum at Halicarnassus </a> by <a href="https://sketchfab.com/WelsEvil" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> WelsEvil </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+         <div class="sketchfab-embed-wrapper"> <iframe title="Mausoleum at Halicarnassus" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/9a9f2a6aeccd45558246075daac9c7a6/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/mausoleum-at-halicarnassus-9a9f2a6aeccd45558246075daac9c7a6" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Mausoleum at Halicarnassus </a> by <a href="https://sketchfab.com/funreality" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> funreality </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+            <div class="sub-content">
+                <h3>Tổng quan</h3>
+                <p>Xây dựng tại Halicarnassus (Thổ Nhĩ Kỳ). Tên của vị vua này là nguồn gốc của từ "Mausoleum" (Lăng mộ lớn) ngày nay.</p>
+                <h3>Lịch sử & Kiến trúc</h3>
+                <p>Hoàn thành năm 350 TCN bởi Vương hậu Artemisia II để tưởng niệm chồng. Ngôi mộ cao 45m với kiến trúc điêu khắc vô cùng tinh xảo.</p>
+            </div>
+            <a href="#" class="top-btn">▲ Quay lại danh sách</a>
         </div>
-
-        <div class="wonder-card">
+</div>
+        <!-- 5. TƯỢNG THẦN ZEUS -->
+        <div id="zeus" class="detail-section fade-in-content">
+ <div class="inner-content-box"> 
             <h2>Tượng thần Zeus</h2>
-            <p>Bức tượng khổng lồ làm bằng ngà voi và vàng, khắc họa vị thần tối cao trên đỉnh Olympia.</p>
-<div class="sketchfab-embed-wrapper"> <iframe title="Statue of Zeus at Olympia" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/3ef14e973af8440c8fa34bfeee6da3e0/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/statue-of-zeus-at-olympia-3ef14e973af8440c8fa34bfeee6da3e0" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Statue of Zeus at Olympia </a> by <a href="https://sketchfab.com/WelsEvil" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> WelsEvil </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+           <div class="sketchfab-embed-wrapper"> <iframe title="Zeus Statue" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/160b00bc85ef4fbfad5a23bd7e6c5bce/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/zeus-statue-160b00bc85ef4fbfad5a23bd7e6c5bce" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Zeus Statue </a> by <a href="https://sketchfab.com/funreality" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> funreality </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+            <div class="sub-content">
+                <h3>Tổng quan</h3>
+                <p>Đặt bên trong đền thờ Zeus tại vùng Olympia (Hy Lạp) – cái nôi của thế vận hội Olympic cổ đại cổ kính.</p>
+                <h3>Lịch sử & Kiến trúc</h3>
+                <p>Do nhà điêu khắc Phidias tạc năm 435 TCN. Tượng cao 12m làm từ ngà voi và vàng, khắc họa thần Zeus uy nghiêm trên ngai vàng.</p>
+            </div>
+            <a href="#" class="top-btn">▲ Quay lại danh sách</a>
         </div>
-
-        <div class="wonder-card">
+</div>
+        <!-- 6. HẢI ĐĂNG ALEXANDRIA -->
+        <div id="alexandria" class="detail-section fade-in-content">
+ <div class="inner-content-box"> 
             <h2>Hải đăng Alexandria</h2>
-            <p>Ngọn đèn biển kỳ vĩ dẫn đường cho các thủy thủ trên biển Địa Trung Hải suốt hàng thế kỷ.</p>
-<div class="sketchfab-embed-wrapper"> <iframe title="Lighthouse of Alexandria" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/628f4edf03d843f3986b79587c214d3f/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/lighthouse-of-alexandria-628f4edf03d843f3986b79587c214d3f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Lighthouse of Alexandria </a> by <a href="https://sketchfab.com/WelsEvil" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> WelsEvil </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+           <div class="sketchfab-embed-wrapper"> <iframe title="Lighthouse of Alexandria" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/628f4edf03d843f3986b79587c214d3f/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/lighthouse-of-alexandria-628f4edf03d843f3986b79587c214d3f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Lighthouse of Alexandria </a> by <a href="https://sketchfab.com/WelsEvil" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> WelsEvil </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+            <div class="sub-content">
+                <h3>Tổng quan</h3>
+                <p>Xây dựng trên đảo Pharos tại Alexandria (Ai Cập). Là đỉnh cao kỹ thuật và công nghệ của thời đại bấy giờ.</p>
+                <h3>Lịch sử & Kiến trúc</h3>
+                <p>Xây vào thế kỷ 3 TCN dưới triều Ptolemy, cao khoảng 100-130m. Đèn trên đỉnh dùng gương phản chiếu ánh lửa trước khi bị động đất phá hủy.</p>
+            </div>
+            <a href="#" class="top-btn">▲ Quay lại danh sách</a>
         </div>
-
-        <div class="wonder-card">
+</div>
+        <!-- 7. NGƯỜI KHỔNG LỒ ĐẢO RHODES -->
+        <div id="rhodes" class="detail-section fade-in-content">
+ <div class="inner-content-box"> 
             <h2>Người khổng lồ đảo Rhodes</h2>
-            <p>Bức tượng thần mặt trời Helios bằng đồng khổng lồ đứng sừng sững tại lối vào cảng biển.</p>
-<div class="sketchfab-embed-wrapper"> <iframe title="Colossus of Rhodes" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/dc0388368ca14f988474d005f80839a4/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/colossus-of-rhodes-dc0388368ca14f988474d005f80839a4" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Colossus of Rhodes </a> by <a href="https://sketchfab.com/WelsEvil" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> WelsEvil </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+            <div class="sketchfab-embed-wrapper"> <iframe title="Colossus of Rhodes" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/d6d8cd72b7c448e8b358ad2fbb4c711c/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/colossus-of-rhodes-d6d8cd72b7c448e8b358ad2fbb4c711c" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Colossus of Rhodes </a> by <a href="https://sketchfab.com/funreality" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> funreality </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+            <div class="sub-content">
+                <h3>Tổng quan</h3>
+                <p>Bức tượng vĩ đại của thần Mặt Trời Helios, đặt ngay tại cửa ngõ bến cảng của hòn đảo Rhodes xinh đẹp thuộc Hy Lạp.</p>
+                <h3>Lịch sử & Kiến trúc</h3>
+                <p>Xây năm 280 TCN để ăn mừng chiến thắng. Tượng đúc bằng đồng cao 33m. Dù bị sập sau 54 năm do động đất, bức tượng vẫn vô cùng nổi tiếng.</p>
+            </div>
+            <a href="#" class="top-btn">▲ Quay lại danh sách</a>
         </div>
+</div>
+    </div>
 
-    </main>
+    <script>
+        const scrollElements = document.querySelectorAll(".fade-in-content");
+        const elementInView = (el, dividend = 1) => {
+            return (el.getBoundingClientRect().top <= (window.innerHeight || document.documentElement.clientHeight) / dividend);
+        };
+        const displayScrollElement = (element) => { element.classList.add("is-visible"); };
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 1.15)) { displayScrollElement(el); }
+            });
+        }
+        window.addEventListener("load", handleScrollAnimation);
+        window.addEventListener("scroll", handleScrollAnimation);
+    </script>
 
 </body>
 </html>
